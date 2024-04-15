@@ -1,16 +1,17 @@
-package ru.practicum.shareit.booking.dto;
+package ru.practicum.shareit.booking.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.practicum.shareit.booking.model.BookingStatus;
+import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.user.model.User;
+
 import java.sql.Timestamp;
 
 /**
- * Бронирование DTO
+ * Бронирование
  */
 @Data
-@AllArgsConstructor
-public class BookingDto {
+public class Booking {
     /**
      * Уникальный идентификатор бронирования
      */
@@ -26,14 +27,25 @@ public class BookingDto {
     /**
      * Вещь, которую пользователь бронирует
      */
-    private int itemId;
+    private Item item;
     /**
      * Пользователь, который осуществляет бронирование
      */
-    private int bookerId;
+    private User booker;
     /**
      * Статус бронирования
      */
     private BookingStatus status;
+
+    public static BookingDto toBookingDto(Booking booking) {
+        return new BookingDto(
+                booking.getId(),
+                booking.getStart(),
+                booking.getEnd(),
+                booking.getItem().getId(),
+                booking.getBooker().getId(),
+                booking.getStatus()
+        );
+    }
 
 }
