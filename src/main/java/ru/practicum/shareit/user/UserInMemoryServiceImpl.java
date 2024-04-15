@@ -33,7 +33,7 @@ public class UserInMemoryServiceImpl implements UserService {
             throw new NotFoundException("Пользователь с id=" + user.getId() + " не найден");
         }
         User updated = users.get(userId);
-        if (!( user.getName() == null || user.getName().isEmpty())) {
+        if (!(user.getName() == null || user.getName().isEmpty())) {
             updated.setName(user.getName());
         }
         if (!(user.getEmail() == null || user.getEmail().equals(updated.getEmail()) || user.getEmail().isEmpty())) {

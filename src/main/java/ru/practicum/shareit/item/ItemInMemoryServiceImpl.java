@@ -92,7 +92,7 @@ public class ItemInMemoryServiceImpl implements ItemService {
             return new ArrayList<>();
         }
         return items.values().stream()
-                .filter((i) -> ( i.isAvailable() && (
+                .filter((i) -> (i.isAvailable() && (
                         i.getName().toLowerCase().contains(query.toLowerCase()) ||
                         i.getDescription().toLowerCase().contains(query.toLowerCase())
                 )))
