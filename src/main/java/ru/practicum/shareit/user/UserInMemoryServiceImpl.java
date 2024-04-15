@@ -7,8 +7,8 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -63,8 +63,8 @@ public class UserInMemoryServiceImpl implements UserService {
     }
 
     @Override
-    public ArrayList<UserDto> getAllUsers() {
-        return new ArrayList<UserDto>(users.values().stream().map(User::toUserDto).collect(Collectors.toList()));
+    public List<UserDto> getAllUsers() {
+        return users.values().stream().map(User::toUserDto).collect(Collectors.toList());
     }
 
     private void checkEmailExists(String email) throws AlreadyExistsException {

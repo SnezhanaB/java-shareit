@@ -11,7 +11,6 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
 
-import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +50,7 @@ public class ItemInMemoryServiceImpl implements ItemService {
         }
         Item updated = items.get(itemId);
 
-        if (userId != updated.getOwner().getId()) {
+        if (!userId.equals(updated.getOwner().getId())) {
             throw new AccessViolationException("Вы не можете обновлять чужую вещь");
         }
 
