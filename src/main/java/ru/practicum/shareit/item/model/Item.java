@@ -1,13 +1,14 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.Data;
-import ru.practicum.shareit.item.dto.ItemDto;
+import lombok.NoArgsConstructor;
 import ru.practicum.shareit.user.model.User;
 
 /**
  * Вещь
  */
 @Data
+@NoArgsConstructor
 public class Item {
     /**
      * Уникальный идентификатор вещи
@@ -29,25 +30,11 @@ public class Item {
      * Владелец вещи
      */
     private User owner;
-    /**
-     * Если вещь была создана по запросу другого пользователя, то в этом
-     * поле будет храниться ссылка на соответствующий запрос
-     */
-    // private ItemRequest request;
 
     public Item(int id, String name, String description, boolean available) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.available = available;
-    }
-
-    public static ItemDto toItemDto(Item item) {
-        return new ItemDto(
-                item.getId(),
-                item.getName(),
-                item.getDescription(),
-                item.isAvailable()
-        );
     }
 }

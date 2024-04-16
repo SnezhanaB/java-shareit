@@ -2,6 +2,7 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.AccessViolationException;
 import ru.practicum.shareit.exception.DataValidationException;
@@ -10,6 +11,7 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,8 @@ public class ItemInMemoryServiceImpl implements ItemService {
 
     private final UserService userService;
 
+    private final ModelMapper mapper = new ModelMapper();
+
     private int currentId = 1;
 
     private final HashMap<Integer, Item> items = new HashMap<>();
@@ -35,12 +39,12 @@ public class ItemInMemoryServiceImpl implements ItemService {
             throw new DataValidationException("Не заполнено поле 'available'");
         }
 
-        Item created = ItemDto.toItemDto(item);
+        Item created = mapper.map(item, Item.class);
         created.setId(currentId++);
-        created.setOwner(UserDto.toUser(owner));
+        created.setOwner(mapper.map(owner, User.class));
         items.put(created.getId(), created);
 
-        return Item.toItemDto(created);
+        return mapper.map(created, ItemDto.class);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class ItemInMemoryServiceImpl implements ItemService {
 
         items.put(itemId, updated);
 
-        return Item.toItemDto(updated);
+        return mapper.map(updated, ItemDto.class);
     }
 
     @Override
@@ -76,14 +80,14 @@ public class ItemInMemoryServiceImpl implements ItemService {
         if (!items.containsKey(itemId)) {
             throw new NotFoundException("Вещь с id=" + itemId + " не найдена");
         }
-        return Item.toItemDto(items.get(itemId));
+        return mapper.map(items.get(itemId), ItemDto.class);
     }
 
     @Override
     public List<ItemDto> getAllItems(Integer userId) {
         return items.values().stream()
                 .filter((i) -> i.getOwner().getId().equals(userId))
-                .map(Item::toItemDto).collect(Collectors.toList());
+                .map((i) -> mapper.map(i, ItemDto.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -96,6 +100,6 @@ public class ItemInMemoryServiceImpl implements ItemService {
                         i.getName().toLowerCase().contains(query.toLowerCase()) ||
                         i.getDescription().toLowerCase().contains(query.toLowerCase())
                 )))
-                .map(Item::toItemDto).collect(Collectors.toList());
+                .map((i) -> mapper.map(i, ItemDto.class)).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.AlreadyExistsException;
 import ru.practicum.shareit.exception.NotFoundException;
@@ -19,11 +20,13 @@ public class UserInMemoryServiceImpl implements UserService {
 
     private final HashMap<Integer, User> users = new HashMap<>();
 
+    private final ModelMapper mapper = new ModelMapper();
+
     @Override
-    public UserDto createUser(UserDto user) {
+    public UserDto createUser(UserDto user) throws AlreadyExistsException {
         checkEmailExists(user.getEmail());
         user.setId(currentId++);
-        users.put(user.getId(), UserDto.toUser(user));
+        users.put(user.getId(), mapper.map(user, User.class));
         return user;
     }
 
@@ -41,7 +44,7 @@ public class UserInMemoryServiceImpl implements UserService {
             updated.setEmail(user.getEmail());
         }
         users.put(userId, updated);
-        return User.toUserDto(updated);
+        return mapper.map(updated, UserDto.class);
     }
 
     @Override
@@ -50,11 +53,11 @@ public class UserInMemoryServiceImpl implements UserService {
             throw new NotFoundException("Пользователь с id=" + userId + " не найден");
         }
 
-        return User.toUserDto(users.get(userId));
+        return mapper.map(users.get(userId), UserDto.class);
     }
 
     @Override
-    public void deleteUserById(int userId) {
+    public void deleteUserById(int userId) throws NotFoundException {
         if (!users.containsKey(userId)) {
             throw new NotFoundException("Пользователь с id=" + userId + " не найден");
         }
@@ -64,7 +67,7 @@ public class UserInMemoryServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return users.values().stream().map(User::toUserDto).collect(Collectors.toList());
+        return users.values().stream().map((u) -> mapper.map(u, UserDto.class)).collect(Collectors.toList());
     }
 
     private void checkEmailExists(String email) throws AlreadyExistsException {
