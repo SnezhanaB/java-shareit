@@ -1,13 +1,15 @@
-package ru.practicum.shareit.request.dto;
+package ru.practicum.shareit.request.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.practicum.shareit.user.model.User;
 
 import java.sql.Timestamp;
 
+/**
+ * Запрос вещи
+ */
 @Data
-@AllArgsConstructor
-public class ItemRequestDto {
+public class ItemRequest {
     /**
      * Уникальный идентификатор запроса
      */
@@ -19,7 +21,7 @@ public class ItemRequestDto {
     /**
      * Пользователь, создавший запрос
      */
-    private int requesterId;
+    private User requester;
     /**
      * Дата и время создания запроса
      */
