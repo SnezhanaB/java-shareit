@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     Item getItemById(Integer id);
+
     List<Item> findAllByOwnerId(Integer userId);
+
     @Query("select i " +
             "from Item as i " +
             "join i.owner as u " +
@@ -16,5 +18,5 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "i.available = TRUE and (" +
             "lower(i.name) like lower(concat('%', :query, '%')) or " +
             "lower(i.description) like lower(concat('%', :query, '%')))")
-    List<Item> findAvailableItemsByNameOrDescription( String query);
+    List<Item> findAvailableItemsByNameOrDescription(String query);
 }

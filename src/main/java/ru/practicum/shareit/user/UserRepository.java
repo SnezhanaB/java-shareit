@@ -5,5 +5,6 @@ import ru.practicum.shareit.user.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     User getUserById(Integer id);
+
     User findUserByEmail(String email);
 }
