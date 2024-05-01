@@ -3,9 +3,6 @@ package ru.practicum.shareit.booking.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.booking.model.BookingStatus;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.user.dto.UserDto;
-
 import java.sql.Timestamp;
 
 /**
@@ -13,27 +10,33 @@ import java.sql.Timestamp;
  */
 @Data
 @NoArgsConstructor
-public class BookingDto {
+public class BookingSimpleDto {
+
     /**
      * Уникальный идентификатор бронирования
      */
     private int id;
+
     /**
      * Дата и время начала бронирования
      */
     private Timestamp start;
+
     /**
      * Дата и время конца бронирования
      */
     private Timestamp end;
+
     /**
      * Вещь, которую пользователь бронирует
      */
-    private ItemDto item;
+    private int itemId;
+
     /**
      * Пользователь, который осуществляет бронирование
      */
-    private UserDto booker;
+    private int bookerId;
+
     /**
      * Статус бронирования
      */

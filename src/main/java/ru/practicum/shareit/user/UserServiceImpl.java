@@ -20,8 +20,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        checkEmailExists(userDto.getEmail());
-
         User user = repository.save(mapper.map(userDto, User.class));
         return mapper.map(user, UserDto.class);
     }
