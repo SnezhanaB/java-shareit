@@ -35,8 +35,12 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     /**
      * By Booker CURRENT
      */
-    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByIdAsc(Integer bookerId, Timestamp now,
-                                                                         Timestamp alsoNow);
+    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByIdAsc(
+            Integer bookerId,
+            Timestamp now,
+            Timestamp alsoNow
+    );
+
     /**
      * By Owner ALL
      */
