@@ -21,7 +21,7 @@ public class BookingController {
     BookingDto createBooking(
             @RequestHeader("X-Sharer-User-Id") Integer userId,
             @RequestBody BookingCreateDto createDto
-    ){
+    ) {
         log.info("createBooking, userId: {}, createDto: {}", userId, createDto);
         return service.createBooking(userId, createDto);
     }

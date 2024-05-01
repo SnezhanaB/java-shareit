@@ -1,8 +1,5 @@
 package ru.practicum.shareit.booking.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Статус бронирования
  */

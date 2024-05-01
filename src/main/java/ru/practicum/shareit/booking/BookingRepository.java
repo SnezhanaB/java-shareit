@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
+
     Booking getBookingById(Integer id);
 
     /**
