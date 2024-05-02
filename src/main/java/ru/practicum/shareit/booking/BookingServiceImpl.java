@@ -193,7 +193,7 @@ public class BookingServiceImpl implements BookingService {
                 bookingList = bookingRepository.findAllByItemOwnerIdOrderByStartDesc(ownerId);
                 break;
             case "CURRENT":
-                bookingList = bookingRepository.findAllByItemOwnerIdAndStartAfterAndEndBeforeOrderByStartDesc(ownerId,
+                bookingList = bookingRepository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(ownerId,
                         now, now);
                 break;
             case "PAST":
