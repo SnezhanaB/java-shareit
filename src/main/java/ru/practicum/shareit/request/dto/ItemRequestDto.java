@@ -2,8 +2,7 @@ package ru.practicum.shareit.request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +22,5 @@ public class ItemRequestDto {
     /**
      * Дата и время создания запроса
      */
-    private Timestamp created;
+    private LocalDateTime created;
 }

@@ -16,8 +16,7 @@ import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import javax.validation.ValidationException;
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,17 +51,17 @@ public class BookingServiceImpl implements BookingService {
             throw new IllegalArgumentException("Вы не можете бронировать собственные вещи");
         }
 
-        Timestamp now = Timestamp.from(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
         if (createDto.getStart() == null || createDto.getEnd() == null) {
             throw new ValidationException("Дата начала и окончания должны быть заполнены");
         }
-        if (createDto.getStart().before(now)) {
+        if (createDto.getStart().isBefore(now)) {
             throw new ValidationException("Дата начала не может быть в прошлом");
         }
-        if (createDto.getEnd().before(now)) {
+        if (createDto.getEnd().isBefore(now)) {
             throw new ValidationException("Дата окончания не может быть в прошлом");
         }
-        if (createDto.getEnd().before(createDto.getStart()) ||
+        if (createDto.getEnd().isBefore(createDto.getStart()) ||
                 createDto.getEnd().equals(createDto.getStart())) {
             throw new ValidationException("Дата окончания не может быть раньше или равна дате начала");
         }
@@ -151,7 +150,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Пользователь с id=" + userId + " не найден");
         }
 
-        Timestamp now = Timestamp.from(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
         List<Booking> bookingList;
         switch (state) {
             case "ALL":
@@ -187,7 +186,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Пользователь с id=" + ownerId + " не найден");
         }
 
-        Timestamp now = Timestamp.from(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
         List<Booking> bookingList;
         switch (state) {
             case "ALL":

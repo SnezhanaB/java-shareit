@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,20 +25,20 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     /**
      * By Booker PAST
      */
-    List<Booking> findAllByBookerIdAndEndBeforeOrderByStartDesc(Integer bookerId, Timestamp now);
+    List<Booking> findAllByBookerIdAndEndBeforeOrderByStartDesc(Integer bookerId, LocalDateTime now);
 
     /**
      * By Booker FUTURE
      */
-    List<Booking> findAllByBookerIdAndStartAfterOrderByStartDesc(Integer bookerId, Timestamp now);
+    List<Booking> findAllByBookerIdAndStartAfterOrderByStartDesc(Integer bookerId, LocalDateTime now);
 
     /**
      * By Booker CURRENT
      */
     List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByIdAsc(
             Integer bookerId,
-            Timestamp now,
-            Timestamp alsoNow
+            LocalDateTime now,
+            LocalDateTime alsoNow
     );
 
     /**
@@ -54,20 +54,20 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     /**
      * By Owner PAST
      */
-    List<Booking> findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(Integer bookerId, Timestamp now);
+    List<Booking> findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(Integer bookerId, LocalDateTime now);
 
     /**
      * By Owner FUTURE
      */
-    List<Booking> findAllByItemOwnerIdAndStartAfterOrderByStartDesc(Integer bookerId, Timestamp now);
+    List<Booking> findAllByItemOwnerIdAndStartAfterOrderByStartDesc(Integer bookerId, LocalDateTime now);
 
     /**
      * By Owner CURRENT
      */
     List<Booking> findAllByItemOwnerIdAndStartAfterAndEndBeforeOrderByStartDesc(
             Integer bookerId,
-            Timestamp now,
-            Timestamp alsoNow
+            LocalDateTime now,
+            LocalDateTime alsoNow
     );
 
     /**
@@ -76,7 +76,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     Optional<Booking> findFirstByItemIdAndStatusAndStartBeforeOrderByStartDesc(
             Integer itemId,
             BookingStatus status,
-            Timestamp now
+            LocalDateTime now
     );
 
     /**
@@ -85,7 +85,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     Optional<Booking> findFirstByItemIdAndStatusAndStartAfterOrderByStartAsc(
             Integer itemId,
             BookingStatus status,
-            Timestamp now
+            LocalDateTime now
     );
 
     /**
@@ -95,6 +95,6 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             Integer bookerId,
             Integer itemId,
             BookingStatus status,
-            Timestamp now
+            LocalDateTime now
     );
 }

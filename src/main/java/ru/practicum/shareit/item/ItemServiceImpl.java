@@ -21,9 +21,7 @@ import ru.practicum.shareit.item.dto.ItemExtendedDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
-
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +94,7 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("Пользователь с id=" + userId + " не найден");
         }
 
-        Timestamp now = Timestamp.from(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
 
         Item item = itemRepository.getItemById(itemId);
         ItemExtendedDto itemDto = mapper.map(item, ItemExtendedDto.class);
@@ -129,7 +127,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemExtendedDto> getAllItems(Integer userId) {
-        Timestamp now = Timestamp.from(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
 
         return itemRepository.findAllByOwnerIdOrderById(userId).stream()
                 .map((i) -> mapper.map(i, ItemExtendedDto.class))
@@ -177,14 +175,14 @@ public class ItemServiceImpl implements ItemService {
         }
 
         if (bookingRepository.findFirstByBookerIdAndItemIdAndStatusEqualsAndEndIsBefore(
-                userId, itemId, BookingStatus.APPROVED, Timestamp.from(Instant.now())).isEmpty()) {
+                userId, itemId, BookingStatus.APPROVED, LocalDateTime.now()).isEmpty()) {
             throw new DataValidationException("Вы не можете оставлять отзыв к этой вещи");
         }
 
         Comment newComment = mapper.map(commentCreateDto, Comment.class);
         newComment.setItem(item);
         newComment.setAuthor(user);
-        newComment.setCreated(Timestamp.from(Instant.now()));
+        newComment.setCreated(LocalDateTime.now());
         commentRepository.save(newComment);
 
         return mapper.map(newComment, CommentDto.class);

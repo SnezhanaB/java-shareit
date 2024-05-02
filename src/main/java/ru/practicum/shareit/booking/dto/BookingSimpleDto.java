@@ -3,7 +3,7 @@ package ru.practicum.shareit.booking.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.booking.model.BookingStatus;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Бронирование DTO
@@ -20,12 +20,12 @@ public class BookingSimpleDto {
     /**
      * Дата и время начала бронирования
      */
-    private Timestamp start;
+    private LocalDateTime start;
 
     /**
      * Дата и время конца бронирования
      */
-    private Timestamp end;
+    private LocalDateTime end;
 
     /**
      * Вещь, которую пользователь бронирует

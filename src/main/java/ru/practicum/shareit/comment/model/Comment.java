@@ -6,7 +6,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -28,5 +28,5 @@ public class Comment {
     private User author;
 
     @Column(name = "created_date", nullable = false)
-    private Timestamp created;
+    private LocalDateTime created;
 }

@@ -5,7 +5,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Бронирование
@@ -27,12 +27,12 @@ public class Booking {
      * Дата и время начала бронирования
      */
     @Column(name = "start_time", nullable = false)
-    private Timestamp start;
+    private LocalDateTime start;
     /**
      * Дата и время конца бронирования
      */
     @Column(name = "end_time", nullable = false)
-    private Timestamp end;
+    private LocalDateTime end;
     /**
      * Вещь, которую пользователь бронирует
      */
