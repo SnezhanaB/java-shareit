@@ -2,8 +2,7 @@ package ru.practicum.shareit.request.model;
 
 import lombok.Data;
 import ru.practicum.shareit.user.model.User;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Запрос вещи
@@ -25,5 +24,5 @@ public class ItemRequest {
     /**
      * Дата и время создания запроса
      */
-    private Timestamp created;
+    private LocalDateTime created;
 }
