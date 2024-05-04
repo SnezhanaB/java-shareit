@@ -26,34 +26,48 @@ public class ChunkRequest implements Pageable {
         }
     }
 
-    public ChunkRequest(int offset, int limit) {
-        this(offset, limit, null);
+    @Override
+    public int getPageNumber() {
+        return 0;
     }
 
     @Override
-    public int getPageNumber() { return 0; }
+    public int getPageSize() {
+        return limit;
+    }
 
     @Override
-    public int getPageSize() { return limit; }
+    public long getOffset() {
+        return offset;
+    }
 
     @Override
-    public long getOffset() { return offset; }
+    public Sort getSort() {
+        return this.sort;
+    }
 
     @Override
-    public Sort getSort() { return this.sort; }
+    public Pageable next() {
+        return null;
+    }
 
     @Override
-    public Pageable next() { return null; }
+    public Pageable previousOrFirst() {
+        return this;
+    }
 
     @Override
-    public Pageable previousOrFirst() { return this; }
+    public Pageable first() {
+        return this;
+    }
 
     @Override
-    public Pageable first() { return this; }
+    public Pageable withPage(int pageNumber) {
+        return null;
+    }
 
     @Override
-    public Pageable withPage(int pageNumber) { return null; }
-
-    @Override
-    public boolean hasPrevious() { return false; }
+    public boolean hasPrevious() {
+        return false;
+    }
 }
