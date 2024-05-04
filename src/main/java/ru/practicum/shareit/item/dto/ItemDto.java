@@ -29,5 +29,9 @@ public class ItemDto {
      * Статус о том, доступна или нет вещь для аренды
      */
     private Boolean available;
+    /**
+     * Идентификатор запроса
+     */
+    private Integer requestId;
 
 }
