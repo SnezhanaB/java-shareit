@@ -1,17 +1,24 @@
 package ru.practicum.shareit.utils;
 
+import org.modelmapper.ModelMapper;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookingSimpleDto;
 import ru.practicum.shareit.booking.model.BookingStatus;
+import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemExtendedDto;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public final class TestingUtils {
     private TestingUtils() {
     }
+
+    private static final ModelMapper mapper = new ModelMapper();
 
     public static final String X_USER_HEADER = "X-Sharer-User-Id";
 
@@ -33,12 +40,29 @@ public final class TestingUtils {
       return new ItemDto(1, "Дрель", "Аккумуляторная", true, 1);
     }
 
+    public static ItemExtendedDto createItemExtendedDto() {
+        ItemExtendedDto dto = mapper.map(createItemDto(), ItemExtendedDto.class);
+        dto.setComments(List.of(createCommentDto()));
+        dto.setNextBooking(createBookingSimpleDto());
+        dto.getNextBooking().setId(2);
+        dto.setLastBooking(createBookingSimpleDto());
+        return dto;
+    }
+
     public static BookingDto createBookingDto() {
         return new BookingDto(1, START_DATE, END_DATE, createItemDto(), createUserDto(), BookingStatus.WAITING);
     }
 
+    public static BookingSimpleDto createBookingSimpleDto() {
+        return mapper.map(createBookingDto(), BookingSimpleDto.class);
+    }
+
     public static BookingCreateDto createBookingCreateDto() {
         return new BookingCreateDto(START_DATE, END_DATE, 1);
+    }
+
+    public static CommentDto createCommentDto() {
+        return new CommentDto(1, "Text", "AuthorName", START_DATE);
     }
 
 }
