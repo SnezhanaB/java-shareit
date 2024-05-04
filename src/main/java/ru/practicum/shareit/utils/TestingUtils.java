@@ -13,6 +13,8 @@ public final class TestingUtils {
     private TestingUtils() {
     }
 
+    public static final String X_USER_HEADER = "X-Sharer-User-Id";
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     public static final String START_AS_STRING = "2024-05-01T20:00:00";
