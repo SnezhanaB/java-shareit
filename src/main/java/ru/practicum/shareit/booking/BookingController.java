@@ -30,7 +30,7 @@ public class BookingController {
     BookingDto approveBooking(
             @RequestHeader("X-Sharer-User-Id") Integer userId,
             @PathVariable Integer bookingId,
-            @RequestParam(required = true) Boolean approved
+            @RequestParam() Boolean approved
     ) {
         log.info("approveBooking, userId: {}, bookingId: {}, approved: {}", userId, bookingId, approved);
         return service.updateStatus(userId, bookingId, approved);
@@ -48,19 +48,23 @@ public class BookingController {
     @GetMapping()
     List<BookingDto> getBookings(
             @RequestHeader("X-Sharer-User-Id") Integer userId,
-            @RequestParam(required = false, defaultValue = "ALL") String state
+            @RequestParam(required = false, defaultValue = "ALL") String state,
+            @RequestParam(required = false, defaultValue = "0") Integer from,
+            @RequestParam(required = false, defaultValue = "10") Integer size
     ) {
         log.info("getBookings, userId: {}, state: {}", userId, state);
-        return service.getAllBookings(userId, state);
+        return service.getAllBookings(userId, state, from, size);
     }
 
     @GetMapping("/owner")
     List<BookingDto> getBookingsByOwner(
             @RequestHeader("X-Sharer-User-Id") Integer userId,
-            @RequestParam(required = false, defaultValue = "ALL") String state
+            @RequestParam(required = false, defaultValue = "ALL") String state,
+            @RequestParam(required = false, defaultValue = "0") Integer from,
+            @RequestParam(required = false, defaultValue = "10") Integer size
     ) {
         log.info("getBookingsByOwner, userId: {}, state: {}", userId, state);
-        return service.getAllBookingsByOwnerId(userId, state);
+        return service.getAllBookingsByOwnerId(userId, state, from, size);
     }
 
 }
