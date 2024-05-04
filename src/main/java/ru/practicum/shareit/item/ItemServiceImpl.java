@@ -131,7 +131,7 @@ public class ItemServiceImpl implements ItemService {
 
         return itemRepository.findAllByOwnerIdOrderById(userId).stream()
                 .map((i) -> mapper.map(i, ItemExtendedDto.class))
-                .map((dto) -> {
+                .peek((dto) -> {
                     Optional<Booking> lastBooking =
                             bookingRepository.findFirstByItemIdAndStatusAndStartBeforeOrderByStartDesc(
                                     dto.getId(),
@@ -148,7 +148,6 @@ public class ItemServiceImpl implements ItemService {
 
                     nextBooking.ifPresent(booking -> dto.setNextBooking(mapper.map(booking, BookingSimpleDto.class)));
 
-                    return dto;
                 }).collect(Collectors.toList());
     }
 
