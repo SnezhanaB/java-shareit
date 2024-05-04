@@ -1,5 +1,4 @@
 package ru.practicum.shareit.utils;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.exception.DataValidationException;
@@ -49,17 +48,18 @@ public class ChunkRequest implements Pageable {
 
     @Override
     public Pageable next() {
-        return this;
+        return new ChunkRequest(this.offset + this.limit, this.limit, this.sort);
     }
 
     @Override
     public Pageable previousOrFirst() {
-        return this;
+        if (this.offset - this.limit < 0) return this.first();
+        return new ChunkRequest(this.offset - this.limit, this.limit, this.sort);
     }
 
     @Override
     public Pageable first() {
-        return this;
+        return new ChunkRequest(0, this.limit, this.sort);
     }
 
     @Override
@@ -69,6 +69,6 @@ public class ChunkRequest implements Pageable {
 
     @Override
     public boolean hasPrevious() {
-        return false;
+        return this.offset - this.limit > 0;
     }
 }
