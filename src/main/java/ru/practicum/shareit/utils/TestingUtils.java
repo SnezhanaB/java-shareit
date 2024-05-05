@@ -77,8 +77,13 @@ public final class TestingUtils {
     }
 
     public static BookingDto createBookingDto(Integer bookingId) {
+        return createBookingDto(bookingId, 1, 1);
+    }
+
+    public static BookingDto createBookingDto(Integer bookingId, Integer itemId, Integer userId) {
         LocalDateTime now = now();
-        return new BookingDto(bookingId, now, now.plusDays(1), createItemDto(), createUserDto(), BookingStatus.WAITING);
+        return new BookingDto(bookingId, now, now.plusDays(1), createItemDto(itemId), createUserDto(userId),
+                BookingStatus.WAITING);
     }
 
     public static BookingSimpleDto createBookingSimpleDto() {
