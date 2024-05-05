@@ -8,6 +8,7 @@ import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemExtendedDto;
+import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.time.LocalDateTime;
@@ -63,6 +64,10 @@ public final class TestingUtils {
 
     public static CommentDto createCommentDto() {
         return new CommentDto(1, "Text", "AuthorName", START_DATE);
+    }
+
+    public static ItemRequestDto createItemRequestDto() {
+        return new ItemRequestDto(1, "Ищу отвертку", START_DATE, List.of(createItemDto()));
     }
 
 }
