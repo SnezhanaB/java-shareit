@@ -61,8 +61,8 @@ class BookingControllerTest {
             )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id", is(bookingDto.getId()), Integer.class))
-            .andExpect(jsonPath("$.start", is(TestingUtils.START_AS_STRING)))
-            .andExpect(jsonPath("$.end", is(TestingUtils.END_AS_STRING)));
+            .andExpect(jsonPath("$.start", is(bookingDto.getStart().format(TestingUtils.DATE_TIME_FORMATTER))))
+            .andExpect(jsonPath("$.end", is(bookingDto.getEnd().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -72,17 +72,17 @@ class BookingControllerTest {
                 .thenReturn(bookingDto);
 
         mvc.perform(
-                        patch("/bookings/1")
-                                .queryParam("approved", "true")
-                                .header(TestingUtils.X_USER_HEADER, 1)
-                                .characterEncoding(StandardCharsets.UTF_8)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(bookingDto.getId()), Integer.class))
-                .andExpect(jsonPath("$.start", is(TestingUtils.START_AS_STRING)))
-                .andExpect(jsonPath("$.end", is(TestingUtils.END_AS_STRING)));
+            patch("/bookings/1")
+                .queryParam("approved", "true")
+                .header(TestingUtils.X_USER_HEADER, 1)
+                .characterEncoding(StandardCharsets.UTF_8)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id", is(bookingDto.getId()), Integer.class))
+            .andExpect(jsonPath("$.start", is(bookingDto.getStart().format(TestingUtils.DATE_TIME_FORMATTER))))
+            .andExpect(jsonPath("$.end", is(bookingDto.getEnd().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -92,16 +92,16 @@ class BookingControllerTest {
                 .thenReturn(bookingDto);
 
         mvc.perform(
-                        get("/bookings/1")
-                                .header(TestingUtils.X_USER_HEADER, 1)
-                                .characterEncoding(StandardCharsets.UTF_8)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(bookingDto.getId()), Integer.class))
-                .andExpect(jsonPath("$.start", is(TestingUtils.START_AS_STRING)))
-                .andExpect(jsonPath("$.end", is(TestingUtils.END_AS_STRING)));
+            get("/bookings/1")
+                .header(TestingUtils.X_USER_HEADER, 1)
+                .characterEncoding(StandardCharsets.UTF_8)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id", is(bookingDto.getId()), Integer.class))
+            .andExpect(jsonPath("$.start", is(bookingDto.getStart().format(TestingUtils.DATE_TIME_FORMATTER))))
+            .andExpect(jsonPath("$.end", is(bookingDto.getEnd().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -119,8 +119,8 @@ class BookingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].id", is(bookingDto.getId()), Integer.class))
-                .andExpect(jsonPath("$.[0].start", is(TestingUtils.START_AS_STRING)))
-                .andExpect(jsonPath("$.[0].end", is(TestingUtils.END_AS_STRING)));
+                .andExpect(jsonPath("$.[0].start", is(bookingDto.getStart().format(TestingUtils.DATE_TIME_FORMATTER))))
+                .andExpect(jsonPath("$.[0].end", is(bookingDto.getEnd().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -138,7 +138,7 @@ class BookingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].id", is(bookingDto.getId()), Integer.class))
-                .andExpect(jsonPath("$.[0].start", is(TestingUtils.START_AS_STRING)))
-                .andExpect(jsonPath("$.[0].end", is(TestingUtils.END_AS_STRING)));
+                .andExpect(jsonPath("$.[0].start", is(bookingDto.getStart().format(TestingUtils.DATE_TIME_FORMATTER))))
+                .andExpect(jsonPath("$.[0].end", is(bookingDto.getEnd().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 }

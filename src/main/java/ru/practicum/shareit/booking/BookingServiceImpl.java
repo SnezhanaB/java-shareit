@@ -44,17 +44,18 @@ public class BookingServiceImpl implements BookingService {
 
         Item item = itemRepository.getItemById(createDto.getItemId());
         if (item == null) {
-            throw new NotFoundException("Вещь с id=" + userId + " не найдена");
+            throw new NotFoundException("Вещь с id=" + createDto.getItemId() + " не найдена");
         }
         if (!item.isAvailable()) {
-            throw new ValidationException("Вещь с id=" + userId + " не доступна к бронированию");
+            throw new ValidationException("Вещь с id=" + createDto.getItemId() + " не доступна к бронированию");
         }
         Integer ownerId = item.getOwner().getId();
         if (ownerId.equals(userId)) {
             throw new IllegalArgumentException("Вы не можете бронировать собственные вещи");
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        // Оставляем зазор на сетевые задержки
+        LocalDateTime now = LocalDateTime.now().minusSeconds(10);
         if (createDto.getStart() == null || createDto.getEnd() == null) {
             throw new ValidationException("Дата начала и окончания должны быть заполнены");
         }
