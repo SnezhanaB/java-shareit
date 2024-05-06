@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Item {
     /**
      * Уникальный идентификатор вещи

@@ -55,6 +55,10 @@ public final class TestingUtils {
         return mapper.map(createUserDto(userId), User.class);
     }
 
+    public static User createUser() {
+        return createUser(1);
+    }
+
     public static ItemDto createItemDto() {
       return createItemDto(1);
     }
