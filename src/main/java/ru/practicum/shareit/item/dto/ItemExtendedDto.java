@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.booking.dto.BookingSimpleDto;
 import ru.practicum.shareit.comment.dto.CommentDto;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode
 public class ItemExtendedDto {
 
     /**

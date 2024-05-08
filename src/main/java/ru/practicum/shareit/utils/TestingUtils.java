@@ -4,10 +4,14 @@ import org.modelmapper.ModelMapper;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingSimpleDto;
+import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
+import ru.practicum.shareit.comment.dto.CommentCreateDto;
 import ru.practicum.shareit.comment.dto.CommentDto;
+import ru.practicum.shareit.comment.model.Comment;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemExtendedDto;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
@@ -76,6 +80,17 @@ public final class TestingUtils {
         return dto;
     }
 
+    public static Item createItem(Integer itemId, Integer userId) {
+        Item item = mapper.map(createItemDto(itemId), Item.class);
+        item.setOwner(TestingUtils.createUser(userId));
+        return item;
+    }
+
+    public static Item createItem() {
+        return createItem(1, 1);
+    }
+
+
     public static BookingDto createBookingDto() {
         return createBookingDto(1);
     }
@@ -90,6 +105,10 @@ public final class TestingUtils {
                 BookingStatus.WAITING);
     }
 
+    public static Booking createBooking(Integer bookingId, Integer itemId, Integer userId) {
+        return mapper.map(createBookingDto(bookingId, itemId, userId), Booking.class);
+    }
+
     public static BookingSimpleDto createBookingSimpleDto() {
         return mapper.map(createBookingDto(), BookingSimpleDto.class);
     }
@@ -98,8 +117,20 @@ public final class TestingUtils {
         return mapper.map(createBookingDto(), BookingCreateDto.class);
     }
 
+    public static CommentDto createCommentDto(Integer commentId) {
+        return new CommentDto(commentId, "Text" + commentId, "AuthorName" + commentId, START_DATE);
+    }
+
     public static CommentDto createCommentDto() {
-        return new CommentDto(1, "Text", "AuthorName", START_DATE);
+        return createCommentDto(1);
+    }
+
+    public static CommentCreateDto createCommentCreateDto(Integer commentId) {
+        return mapper.map(createCommentDto(commentId), CommentCreateDto.class);
+    }
+
+    public static Comment createComment(Integer commentId) {
+        return mapper.map(createCommentDto(commentId), Comment.class);
     }
 
     public static ItemRequestDto createItemRequestDto() {
