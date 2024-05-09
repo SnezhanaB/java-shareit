@@ -108,6 +108,15 @@ class UserServiceImplTest {
     @Test
     void getUserById() {
 
+        service.getUserById(1);
+
+        verify(userRepository, times(1)).getUserById(eq(1));
+
+    }
+
+    @Test
+    void deleteUserById() {
+
         service.deleteUserById(1);
 
         verify(userRepository, times(1)).deleteById(eq(1));
