@@ -108,9 +108,16 @@ class UserServiceImplTest {
     @Test
     void getUserById() {
 
-        service.getUserById(1);
+        UserDto userDto = TestingUtils.createUserDto(1);
+        User user = TestingUtils.createUser(1);
+
+        when(userRepository.getUserById(anyInt()))
+                .thenReturn(user);
+
+        UserDto saved = service.getUserById(1);
 
         verify(userRepository, times(1)).getUserById(eq(1));
+        assertEquals(saved, userDto);
 
     }
 
