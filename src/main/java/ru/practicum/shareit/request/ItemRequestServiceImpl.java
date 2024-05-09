@@ -29,7 +29,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     private final ModelMapper mapper = new ModelMapper();
 
-
     @Override
     public ItemRequestDto create(ItemRequestCreateDto createDto) {
 
@@ -51,7 +50,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .orElseThrow(() -> new NotFoundException("Пользователь с id=" + userId + " не найден"));
 
         ItemRequest founded = requestRepository.findById(requestId)
-                .orElseThrow(() -> new NotFoundException("Вещь с id=" + userId + " не найдена"));
+                .orElseThrow(() -> new NotFoundException("Запрос с id=" + userId + " не найден"));
 
         ItemRequestDto requestDto = mapper.map(founded, ItemRequestDto.class);
 

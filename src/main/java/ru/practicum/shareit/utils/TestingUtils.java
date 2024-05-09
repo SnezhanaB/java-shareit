@@ -12,7 +12,9 @@ import ru.practicum.shareit.comment.model.Comment;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemExtendedDto;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.request.dto.ItemRequestCreateDto;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
@@ -133,8 +135,24 @@ public final class TestingUtils {
         return mapper.map(createCommentDto(commentId), Comment.class);
     }
 
+    public static ItemRequestDto createItemRequestDto(Integer requestId, Integer requesterId, Integer itemId) {
+        ItemRequestDto dto = mapper.map(createItemRequestCreateDto(requesterId), ItemRequestDto.class);
+        dto.setId(requestId);
+        dto.setItems(List.of(createItemDto(itemId)));
+        dto.setCreated(now());
+        return dto;
+    }
+
     public static ItemRequestDto createItemRequestDto() {
-        return new ItemRequestDto(1, "Ищу отвертку", START_DATE, List.of(createItemDto()));
+        return createItemRequestDto(1, 1, 1);
+    }
+
+    public static ItemRequestCreateDto createItemRequestCreateDto(Integer requesterId) {
+        return new ItemRequestCreateDto("Ищу отвертку, user: " + requesterId, requesterId);
+    }
+
+    public static ItemRequest createItemRequest(Integer requestId, Integer requesterId) {
+        return mapper.map(createItemRequestDto(requestId, requesterId, 1), ItemRequest.class);
     }
 
 }

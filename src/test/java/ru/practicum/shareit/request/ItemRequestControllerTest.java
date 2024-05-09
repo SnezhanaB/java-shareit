@@ -61,7 +61,8 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.id", is(itemRequestDto.getId())))
                 .andExpect(jsonPath("$.description", is(itemRequestDto.getDescription())))
                 .andExpect(jsonPath("$.items[0].id", is(itemRequestDto.getItems().get(0).getId())))
-                .andExpect(jsonPath("$.created", is(TestingUtils.START_AS_STRING)));
+                .andExpect(jsonPath("$.created",
+                        is(itemRequestDto.getCreated().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -98,7 +99,8 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.id", is(itemRequestDto.getId())))
                 .andExpect(jsonPath("$.description", is(itemRequestDto.getDescription())))
                 .andExpect(jsonPath("$.items[0].id", is(itemRequestDto.getItems().get(0).getId())))
-                .andExpect(jsonPath("$.created", is(TestingUtils.START_AS_STRING)));
+                .andExpect(jsonPath("$.created",
+                        is(itemRequestDto.getCreated().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -119,7 +121,8 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.[0].id", is(itemRequestDto.getId())))
                 .andExpect(jsonPath("$.[0].description", is(itemRequestDto.getDescription())))
                 .andExpect(jsonPath("$.[0].items[0].id", is(itemRequestDto.getItems().get(0).getId())))
-                .andExpect(jsonPath("$.[0].created", is(TestingUtils.START_AS_STRING)));
+                .andExpect(jsonPath("$.[0].created",
+                        is(itemRequestDto.getCreated().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -140,7 +143,8 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.[0].id", is(itemRequestDto.getId())))
                 .andExpect(jsonPath("$.[0].description", is(itemRequestDto.getDescription())))
                 .andExpect(jsonPath("$.[0].items[0].id", is(itemRequestDto.getItems().get(0).getId())))
-                .andExpect(jsonPath("$.[0].created", is(TestingUtils.START_AS_STRING)));
+                .andExpect(jsonPath("$.[0].created",
+                        is(itemRequestDto.getCreated().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 
     @Test
@@ -163,6 +167,7 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.[0].id", is(itemRequestDto.getId())))
                 .andExpect(jsonPath("$.[0].description", is(itemRequestDto.getDescription())))
                 .andExpect(jsonPath("$.[0].items[0].id", is(itemRequestDto.getItems().get(0).getId())))
-                .andExpect(jsonPath("$.[0].created", is(TestingUtils.START_AS_STRING)));
+                .andExpect(jsonPath("$.[0].created",
+                        is(itemRequestDto.getCreated().format(TestingUtils.DATE_TIME_FORMATTER))));
     }
 }

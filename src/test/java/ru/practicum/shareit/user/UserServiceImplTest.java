@@ -1,7 +1,6 @@
 package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -34,10 +33,6 @@ class UserServiceImplTest {
     private UserServiceImpl service;
 
     private final ModelMapper mapper = new ModelMapper();
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void createUser() {
