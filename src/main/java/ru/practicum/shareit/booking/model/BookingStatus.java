@@ -19,5 +19,5 @@ public enum BookingStatus {
     /**
      * Бронирование отменено создателем
      */
-    CANCELED;
+    CANCELED
 }

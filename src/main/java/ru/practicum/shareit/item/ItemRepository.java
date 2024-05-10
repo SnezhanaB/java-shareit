@@ -19,4 +19,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "lower(i.name) like lower(concat('%', :query, '%')) or " +
             "lower(i.description) like lower(concat('%', :query, '%')))")
     List<Item> findAvailableItemsByNameOrDescription(String query);
+
+    List<Item> getItemsByRequestId(Integer requestId);
 }

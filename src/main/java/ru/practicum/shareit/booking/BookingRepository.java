@@ -1,5 +1,6 @@
 package ru.practicum.shareit.booking;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
@@ -15,59 +16,61 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     /**
      * By Booker ALL
      */
-    List<Booking> findAllByBookerIdOrderByStartDesc(Integer bookerId);
+    List<Booking> findAllByBookerId(Integer bookerId, Pageable page);
 
     /**
      * By Booker and status
      */
-    List<Booking> findAllByBookerIdAndStatusOrderByStartDesc(Integer bookerId, BookingStatus status);
+    List<Booking> findAllByBookerIdAndStatus(Integer bookerId, BookingStatus status, Pageable page);
 
     /**
      * By Booker PAST
      */
-    List<Booking> findAllByBookerIdAndEndBeforeOrderByStartDesc(Integer bookerId, LocalDateTime now);
+    List<Booking> findAllByBookerIdAndEndBefore(Integer bookerId, LocalDateTime now, Pageable page);
 
     /**
      * By Booker FUTURE
      */
-    List<Booking> findAllByBookerIdAndStartAfterOrderByStartDesc(Integer bookerId, LocalDateTime now);
+    List<Booking> findAllByBookerIdAndStartAfter(Integer bookerId, LocalDateTime now, Pageable page);
 
     /**
      * By Booker CURRENT
      */
-    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByIdAsc(
+    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfter(
             Integer bookerId,
             LocalDateTime now,
-            LocalDateTime alsoNow
+            LocalDateTime alsoNow,
+            Pageable page
     );
 
     /**
      * By Owner ALL
      */
-    List<Booking> findAllByItemOwnerIdOrderByStartDesc(Integer ownerId);
+    List<Booking> findAllByItemOwnerId(Integer ownerId, Pageable page);
 
     /**
      * By Owner and status
      */
-    List<Booking> findAllByItemOwnerIdAndStatusOrderByStartDesc(Integer bookerId, BookingStatus status);
+    List<Booking> findAllByItemOwnerIdAndStatus(Integer bookerId, BookingStatus status, Pageable page);
 
     /**
      * By Owner PAST
      */
-    List<Booking> findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(Integer bookerId, LocalDateTime now);
+    List<Booking> findAllByItemOwnerIdAndEndBefore(Integer bookerId, LocalDateTime now, Pageable page);
 
     /**
      * By Owner FUTURE
      */
-    List<Booking> findAllByItemOwnerIdAndStartAfterOrderByStartDesc(Integer bookerId, LocalDateTime now);
+    List<Booking> findAllByItemOwnerIdAndStartAfter(Integer bookerId, LocalDateTime now, Pageable page);
 
     /**
      * By Owner CURRENT
      */
-    List<Booking> findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(
+    List<Booking> findAllByItemOwnerIdAndStartBeforeAndEndAfter(
             Integer bookerId,
             LocalDateTime now,
-            LocalDateTime alsoNow
+            LocalDateTime alsoNow,
+            Pageable page
     );
 
     /**
