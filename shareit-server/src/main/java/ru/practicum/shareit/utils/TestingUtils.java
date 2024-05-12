@@ -54,7 +54,7 @@ public final class TestingUtils {
     }
 
     public static UserDto createUserDto(Integer userId) {
-        return new UserDto(userId, "User" + userId, "user" + userId + "@example.com");
+        return new UserDto(userId, "User" + userId, "ru/practicum/shareit/user" + userId + "@example.com");
     }
 
     public static User createUser(Integer userId) {
