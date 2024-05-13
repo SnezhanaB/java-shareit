@@ -3,7 +3,6 @@ package ru.practicum.shareit.booking.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import java.time.LocalDateTime;
 
 /**
@@ -24,7 +23,6 @@ public class BookingCreateDto {
     /**
      * Вещь, которую пользователь бронирует
      */
-    @NonNull
     private Integer itemId;
 
 }

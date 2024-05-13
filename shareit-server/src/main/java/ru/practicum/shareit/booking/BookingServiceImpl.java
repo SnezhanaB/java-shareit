@@ -54,17 +54,6 @@ public class BookingServiceImpl implements BookingService {
             throw new IllegalArgumentException("Вы не можете бронировать собственные вещи");
         }
 
-        // Оставляем зазор на сетевые задержки
-        LocalDateTime now = LocalDateTime.now().minusSeconds(10);
-        if (createDto.getStart() == null || createDto.getEnd() == null) {
-            throw new ValidationException("Дата начала и окончания должны быть заполнены");
-        }
-        if (createDto.getStart().isBefore(now)) {
-            throw new ValidationException("Дата начала не может быть в прошлом");
-        }
-        if (createDto.getEnd().isBefore(now)) {
-            throw new ValidationException("Дата окончания не может быть в прошлом");
-        }
         if (createDto.getEnd().isBefore(createDto.getStart()) ||
                 createDto.getEnd().equals(createDto.getStart())) {
             throw new ValidationException("Дата окончания не может быть раньше или равна дате начала");

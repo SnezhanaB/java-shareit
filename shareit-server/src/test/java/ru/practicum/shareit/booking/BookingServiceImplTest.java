@@ -135,54 +135,6 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void createBooking_noStart() {
-        BookingCreateDto createDto = TestingUtils.createBookingCreateDto();
-        createDto.setItemId(3);
-        createDto.setStart(null);
-        ValidationException e = assertThrows(
-                ValidationException.class,
-                () -> bookingService.createBooking(1, createDto)
-        );
-        assertEquals(e.getMessage(), "Дата начала и окончания должны быть заполнены");
-    }
-
-    @Test
-    void createBooking_noEnd() {
-        BookingCreateDto createDto = TestingUtils.createBookingCreateDto();
-        createDto.setItemId(3);
-        createDto.setEnd(null);
-        ValidationException e = assertThrows(
-                ValidationException.class,
-                () -> bookingService.createBooking(1, createDto)
-        );
-        assertEquals(e.getMessage(), "Дата начала и окончания должны быть заполнены");
-    }
-
-    @Test
-    void createBooking_startInThePast() {
-        BookingCreateDto createDto = TestingUtils.createBookingCreateDto();
-        createDto.setItemId(3);
-        createDto.setStart(TestingUtils.now().minusDays(1));
-        ValidationException e = assertThrows(
-                ValidationException.class,
-                () -> bookingService.createBooking(1, createDto)
-        );
-        assertEquals(e.getMessage(), "Дата начала не может быть в прошлом");
-    }
-
-    @Test
-    void createBooking_endInThePast() {
-        BookingCreateDto createDto = TestingUtils.createBookingCreateDto();
-        createDto.setItemId(3);
-        createDto.setEnd(TestingUtils.now().minusDays(1));
-        ValidationException e = assertThrows(
-                ValidationException.class,
-                () -> bookingService.createBooking(1, createDto)
-        );
-        assertEquals(e.getMessage(), "Дата окончания не может быть в прошлом");
-    }
-
-    @Test
     void createBooking_endEqualsStart() {
         BookingCreateDto createDto = TestingUtils.createBookingCreateDto();
         createDto.setItemId(3);

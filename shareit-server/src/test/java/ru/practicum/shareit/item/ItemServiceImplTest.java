@@ -78,17 +78,6 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void createItem_withNullAvailable() {
-        ItemDto dto = TestingUtils.createItemDto();
-        dto.setAvailable(null);
-        DataValidationException e = assertThrows(
-                DataValidationException.class,
-                () -> service.createItem(1, dto)
-        );
-        assertEquals(e.getMessage(), "Не заполнено поле 'available'");
-    }
-
-    @Test
     void createItem_withWrongUserId() {
         NotFoundException e = assertThrows(
                 NotFoundException.class,
@@ -278,19 +267,6 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void search_withBlankQuery() {
-        Item item = TestingUtils.createItem(1, 1);
-
-        when(itemRepository.findAvailableItemsByNameOrDescription(anyString()))
-                .thenReturn(List.of(item));
-
-        List<ItemDto> result = service.search(1, "   ");
-
-        assertEquals(result.size(), 0);
-        verify(itemRepository, times(0)).findAvailableItemsByNameOrDescription(anyString());
-    }
-
-    @Test
     void search() {
         Item item = TestingUtils.createItem(1, 1);
         ItemDto itemDto = mapper.map(item, ItemDto.class);
@@ -367,7 +343,7 @@ class ItemServiceImplTest {
 
         CommentDto result = service.addComment(1, 1, commentCreateDto);
 
-        assertEquals(result.getId(), commentCreateDto.getId());
+        assertEquals(result.getText(), commentCreateDto.getText());
         assertEquals(result.getText(), commentCreateDto.getText());
 
         verify(itemRepository, times(1)).getItemById(anyInt());

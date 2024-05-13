@@ -1,18 +1,19 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.Item.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Вещь DTO
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@EqualsAndHashCode
-public class ItemDto {
+@Getter
+public class ItemCreateDto {
     /**
      * Уникальный идентификатор вещи
      */
@@ -20,14 +21,19 @@ public class ItemDto {
     /**
      * Краткое название
      */
+    @NotBlank
+    @NotNull
     private String name;
     /**
      * Развёрнутое описание
      */
+    @NotNull
+    @NotBlank
     private String description;
     /**
      * Статус о том, доступна или нет вещь для аренды
      */
+    @NotNull
     private Boolean available;
     /**
      * Идентификатор запроса

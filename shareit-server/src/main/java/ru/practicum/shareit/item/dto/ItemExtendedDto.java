@@ -5,8 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.booking.dto.BookingSimpleDto;
 import ru.practicum.shareit.comment.dto.CommentDto;
-
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,13 +20,11 @@ public class ItemExtendedDto {
     /**
      * Краткое название
      */
-    @NotBlank
     private String name;
 
     /**
      * Развёрнутое описание
      */
-    @NotBlank
     private String description;
 
     /**

@@ -71,23 +71,6 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void createNotValidItem() {
-        itemDto.setName("");
-        itemDto.setDescription("");
-
-        mvc.perform(
-                        post("/items")
-                                .content(mapper.writeValueAsString(itemDto))
-                                .header(TestingUtils.X_USER_HEADER, 1)
-                                .characterEncoding(StandardCharsets.UTF_8)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @SneakyThrows
     void updateItem() {
         when(service.updateItem(eq(1), eq(1), any()))
                 .thenReturn(itemDto);
@@ -195,19 +178,4 @@ class ItemControllerTest {
                 .andExpect(jsonPath("$.created", is(TestingUtils.START_AS_STRING)));
     }
 
-    @Test
-    @SneakyThrows
-    void addNotValidComment() {
-        commentDto.setText("");
-
-        mvc.perform(
-                        post("/items/1/comment")
-                                .content(mapper.writeValueAsString(commentDto))
-                                .header(TestingUtils.X_USER_HEADER, 1)
-                                .characterEncoding(StandardCharsets.UTF_8)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isBadRequest());
-    }
 }

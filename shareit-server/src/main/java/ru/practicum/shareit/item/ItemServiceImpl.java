@@ -22,7 +22,6 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,10 +40,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto createItem(Integer userId, ItemDto itemDto) {
-
-        if (itemDto.getAvailable() == null) {
-            throw new DataValidationException("Не заполнено поле 'available'");
-        }
 
         User owner = userRepository.getUserById(userId);
         if (owner == null) {
@@ -153,9 +148,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> search(Integer userId, String query) {
-        if (query.isBlank()) {
-            return new ArrayList<>();
-        }
 
         return itemRepository.findAvailableItemsByNameOrDescription(query).stream()
                 .map((i) -> mapper.map(i, ItemDto.class)).collect(Collectors.toList());
